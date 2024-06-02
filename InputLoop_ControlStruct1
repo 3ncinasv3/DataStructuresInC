@@ -1,0 +1,63 @@
+#include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
+
+typedef struct node {
+	int data;
+	struct Node* next;
+} Node;
+
+int main() {
+
+	bool yesOrNo = true;
+	char input;
+	
+	//	  char cBuffer;
+	int dataInput;
+	int valid;
+	//	  int buffer;
+	
+	puts("\t\t\t=====Welcome to assignment 2=====\n\n");
+	//	  puts("Please initialize node 1 head with an integer value");
+	puts("\tPlease initialize the program by typing in a digit and pressing \"Enter\".\n\n ");
+	
+	while (yesOrNo) {
+		puts("\t\t\tEnter an integer: ");
+	
+		valid = scanf("%d", &dataInput);
+	
+		if (valid == 1) {
+			puts("\n\t\tYour input is valid ");
+			printf("\t\tYour input is %d\n", dataInput);
+		} else {
+			while (getchar() != '\n');
+			puts("Your input isn't valid, please provide an integer");
+			continue;
+		}
+		
+		// Continuation using y/N
+		
+		puts("\t\tWould you like to continue? y/N");
+		while (getchar() != '\n');
+	//	  	  valid = scanf("%c", &cBuffer);
+	
+		do {	
+			input = getchar();
+			if (input == 'n' || input == 'N') {
+				yesOrNo = false;
+			} else if (input == '0') {
+			  exit(0);
+			}
+			  else if (input != 'y' && input != 'Y') {
+				while (getchar() != '\n');
+				puts("Your input isn't valid, please provide yes or no, y/n.");
+			} 	  	  
+		} while (input != 'n' && input != 'N' && input != 'y' && input != 'Y');
+	}
+	
+	puts("This program teaches you about linked lists, continue with any menu option");
+			
+	return 0;
+
+}
+
