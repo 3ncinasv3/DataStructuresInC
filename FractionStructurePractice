@@ -1,0 +1,63 @@
+#include <stdio.h>
+
+typedef struct {
+	int num;
+	int denom;
+} Fraction;
+
+void printFraction(Fraction fr);
+Fraction mulFraction(Fraction a, Fraction b);
+Fraction addFraction(Fraction a, Fraction b);
+
+int main() {
+	
+	Fraction fr1;
+	Fraction fr2;
+		
+	puts("Please input the numerator followed by \"Enter\" key and then the denominator followed by \"Enter\" for Fraction 1");
+		
+	scanf("%d %d", &fr1.num, &fr1.denom);
+	printFraction(fr1);
+	
+	puts("Now please input the numerator followed by \"Enter\" key and then the denominator followed by \"Enter\" for Fraction 2");
+	
+	scanf("%d %d", &fr2.num, &fr2.denom);	 
+	printFraction(fr2);
+	
+	Fraction product = mulFraction(fr1, fr2);
+	
+	printf("The product of multiplication of Fraction 1 x Fraction 2 is %d/%d\n", product.num, product.denom);
+	
+	Fraction sum = addFraction(fr1, fr2);
+	
+	printf("The sum of Fraction 1 + Fraction 2 is %d/%d\n", sum.num, sum.denom);
+					
+	return 0;
+}
+
+void printFraction(Fraction fr) {
+	printf("\nThe input fraction is %d/%d\n", fr.num, fr.denom);
+}
+
+Fraction mulFraction(Fraction a, Fraction b) {
+	Fraction product;
+	
+	product.num = a.num * b.num;
+	product.denom = a.denom * b.denom;
+		
+	return product;
+}
+
+Fraction addFraction(Fraction a, Fraction b) {
+	Fraction sum;
+	
+	sum.num = (a.num * b.denom) + (a.denom * b.num);
+	sum.denom = a.denom * b.denom;	  
+
+	return sum;
+}
+
+Fraction GCD(Fraction a, Fraction b) {
+	
+}
+
