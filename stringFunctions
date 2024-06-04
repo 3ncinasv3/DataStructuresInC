@@ -1,0 +1,42 @@
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+
+	int month = 2;
+	
+	int intArr[] = {1, 2, 3, 4, 5};
+	
+	char str1[] = "Hello";
+	char str2[] = "Hello";
+	char str3[10];
+	
+	// String Compare
+	
+	int x = strcmp(str1, str2);
+	printf("The value of x is %d\n", x);
+	
+	// String Copy
+	
+	strcpy(str3, "Help");	// Copies from arg 2 to arg 1
+	printf("%s\n", str3);
+	
+	// String Concatenate
+	
+	strcat(str3, str1);		// arg1+arg2 
+	printf("After concatenation the value is now %s\n", str3);
+	
+	// String Length
+	
+	int stringLength = strlen(str2);
+	printf("The value of the string length is %d\n", stringLength);
+	
+	char newString[10];
+	puts("Enter a string\n");
+	
+	scanf("%s", newString);
+
+
+	return 0;
+}
+
