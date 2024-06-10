@@ -1,6 +1,197 @@
 #include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
+
+typedef struct node {
+	int data;
+	struct node* next;
+} Node;
+
+// Function Declarations
+Node* insert_top(int num, Node* head);
+Node* insert_bottom(int num, Node* head);
+Node* insert_after(int num, int prev_num, Node* head);
+Node* insert_before(int num, int next_num, Node* head);
+void print_list(Node* head);
+int get_valid_integer(void);
+bool get_continue_input(void);
+void display_menu(void);
+
+Node* insert_top(int num, Node* head) {
+	Node *new_node;
+	new_node = (Node*) malloc(sizeof(Node));
+	new_node->data = num;
+	new_node->next = head;
+	head = new_node;
+	return head;
+}
+
+Node* insert_bottom(int num, Node* head) {
+	Node* current = head;
+	Node* new_node;
+	while (current != NULL && current->next != NULL){
+	current = current->next;
+	}
+	new_node = (Node*) malloc(sizeof(Node));
+	new_node -> data = num;
+	new_node -> next = NULL;
+	if (current != NULL)
+		current->next = new_node;
+	else
+		head = new_node;
+	return head;
+}
+
+Node* insert_after(int num, int prev_num, Node* head) {
+	Node* current = head;
+	Node* new;
+	while (current->data != prev_num) {
+		current = current->next;
+	}
+	new = (Node*)malloc(sizeof(Node));
+	new->data = num;
+	new->next = current->next;
+	current->next = new;
+	return head;	
+}
+
+Node* insert_before(int num, int next_num, Node* head) {
+	Node* current = head;
+	Node* new;
+	while (current->next->data != next_num) {
+		current = current->next;
+	}
+	new = (Node*)malloc(sizeof(Node));
+	new->data = num;
+	new->next = current->next;
+	current->next = new;
+	return head;
+}
+
+void print_list(Node* head) {
+    Node* current = head;
+    printf("\t\tLinked list contents: ");
+    while (current != NULL) {
+        printf("%d -> ", current->data);
+        current = current->next;
+	}
+    
+    printf("NULL\n");
+}
+
+int get_valid_integer() {
+	int dataInput;
+	int valid;
+	
+	while (true) {
+		valid = scanf("%d", &dataInput);
+		if (valid == 1) {
+			while (getchar() != '\n');
+			return dataInput;
+		} else {
+			while (getchar() != '\n');
+			printf("\t\tYour input isn't valid, please provide a number: ");
+		}
+	}
+}
+
+bool get_continue_input() {
+	char input;
+	
+	while (true) {
+		input = getchar();
+		while (getchar() != '\n'); 
+	
+		if (input == 'n' || input == 'N') {
+			return false;
+		} else if (input == 'y' || input == 'Y') {
+		return true;
+		} else {
+		printf("\t\tYour input isn't valid, please provide yes or no, y/n.");
+		}
+	}
+}
+
+void display_menu() {
+	printf("\n\n\t\t====================\n");
+	printf("\t\t1)	Display\n");
+	printf("\t\t2)	Insert First\n");
+	printf("\t\t3)	Insert Last\n");
+	printf("\t\t4)	Insert Anywhere\n");
+	printf("\t\t5)	Delete First\n");
+	printf("\t\t6)	Delete Last\n");
+	printf("\t\t7)	Delete Anywhere\n");
+	printf("\t\t8)	Search\n");
+	printf("\t\t0)	Exit\n");
+}
+
 
 int main() {
 
+	bool yesOrNo = true;
+	int dataInput;
+	int choice;
+	int count = 1;
+	Node* head = NULL;
+	
+
+	
+	puts("\t\t\t=====Welcome to assignment 2=====\n\n");
+	//puts("Please initialize node 1 head with an integer value");
+	//puts("\tPlease initialize the program by typing in a digit and pressing \"Enter\".\n\n ");
+	
+	while (yesOrNo) {
+		printf("\t\tInput data for Node %d: ", count);
+		
+		if(head == NULL) {
+		dataInput = get_valid_integer();
+		//puts("\n\t\tYour input is valid ");
+		//printf("\t\tYour input is %d\n", dataInput);
+		head = insert_top(dataInput, head);
+		} else {
+			dataInput = get_valid_integer();
+			insert_bottom(dataInput,head);
+		}
+		
+		print_list(head);
+		
+		printf("\t\tWould you like to enter more (y/N): ");
+		yesOrNo = get_continue_input();	
+		count++;   	   
+	} 
+			
+	display_menu();
+	do {
+		printf("\n\t\tEnter your choice: ");
+		choice = get_valid_integer();
+		switch (choice) {
+			case 1:
+				print_list(head);
+				break;
+			case 2:
+				printf("\t\tInput data for Node 1: ");
+				dataInput = get_valid_integer();
+				head = insert_top(dataInput, head);
+				count++;
+				break;	  
+			case 3:
+				printf("\t\tInput data for Node %d: ", count);
+				dataInput = get_valid_integer();
+				insert_bottom(dataInput, head);
+				count++;
+				break;
+			case 4:
+			case 0:
+				puts("\t\tExiting");
+				break;	  
+			default:
+				puts("\t\tInvalid Choice");
+		}
+	} while (choice !=0);
+		
+	//puts("This program teaches you about linked lists, continue with any menu option");
+			
 	return 0;
+
 }
+
